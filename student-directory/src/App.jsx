@@ -16,11 +16,20 @@ const INITIAL_STUDENTS = [
 const COURSES = ['Mathematics', 'DSA', 'React', 'Numerical Method'];
 
 function loadStudents() {
+  // normalize existing course names to the new COURSES list
+  const courseMap = {
+    'Computer Science': 'DSA',
+    'Physics': 'Numerical Method',
+    'Chemistry': 'React'
+  };
+
   try {
     const stored = localStorage.getItem('students');
-    return stored ? JSON.parse(stored) : INITIAL_STUDENTS;
+    const list = stored ? JSON.parse(stored) : INITIAL_STUDENTS;
+    const normalized = list.map(s => ({ ...s, course: courseMap[s.course] ?? s.course }));
+    return normalized;
   } catch {
-    return INITIAL_STUDENTS;
+    return INITIAL_STUDENTS.map(s => ({ ...s, course: courseMap[s.course] ?? s.course }));
   }
 }
 
