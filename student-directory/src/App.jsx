@@ -104,7 +104,8 @@ export default function App() {
     setShowForm(false);
   }
 
-  const allCoursesInUse = [...new Set(students.map(s => s.course))].sort();
+  // show only the predefined `COURSES` in the course filter dropdown
+  const allCoursesInUse = [...COURSES].sort();
 
   return (
     <div className="app">
